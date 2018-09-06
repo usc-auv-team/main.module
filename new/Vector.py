@@ -1,5 +1,5 @@
 class Vector(Object):
-    def __init__(xyz):
+    def __init__(self, xyz):
         self.xyz = xyz
 
     # def __call__(self):
