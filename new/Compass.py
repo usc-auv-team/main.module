@@ -4,7 +4,7 @@ from numpy import sin, cos, radians
 def remainder(x, y):
     """
     This isn't an exact replica of the IEEE standard, but it's close enough for now.
-    Python 3.7 has an actual implementation of this
+    Python 3.7 has an actual implementation of this TODO: SWITCH
     """
     from math import ceil
     n = x/y
@@ -150,4 +150,5 @@ class ThreeD(object):
         self.pitch.tare_angle = angles[1]
         self.yaw.tare_angle = angles[2]
 
-    #TODO unified legal_path function
+    def legal_path(self, starts, ends):
+        return [self.roll.legal_path(start[0], end[0]), self.pitch.legal_path(start[1], end[1]), self.yaw.legal_path(start[2], end[2])]
