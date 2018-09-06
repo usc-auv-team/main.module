@@ -1,3 +1,4 @@
+"""FINISHED, with the exception of IEEE remainder stuff"""
 from math import copysign, sqrt, log, atan2, degrees#, remainder TODO
 from numpy import sin, cos, radians
 
@@ -21,6 +22,8 @@ class OneD(object):
 
         protected_zone_start: the first protected angle encountered by a minute hand which starts at 12:00
         protected_zone_size: the number of degrees the minute hand must travel before reaching the end of the protected section
+
+        @Author Hayden Shively
         """
         self.protected_zone_start = protected_zone_start
         self.protected_zone_size = abs(protected_zone_size)%360
@@ -34,6 +37,8 @@ class OneD(object):
 
         angle: degrees, can be positive, negative, huge, or tiny
         return the corresponding angle in the range [0, 360)
+
+        @Author Hayden Shively
         """
         if angle < 0.0: temp = 360.0 - abs(angle)%360.0
         else: temp = angle%360.0
@@ -47,16 +52,20 @@ class OneD(object):
         start: the first point, designated in degrees
         end: the second point, designated in degrees
         return arc measure in degrees (positive if the arc is clockwise of start, negative if it's counterclockwise of start)
+
+        @Author Hayden Shively
         """
         return remainder(end - start, 360.0)
 
     def legalize(self, angle):# tested, works
         """
-        Calls <code>validate(angle)</code>. If the result is inside the protected zone,
+        Calls validate(angle) If the result is inside the protected zone,
         this method pushes it out to the nearest zone border.
 
         angle: degrees, can be positive, negative, huge, or tiny
         return the corresponding angle in the range [0, 360) \ (zone start, zone end)
+
+        @Author Hayden Shively
         """
         if self.protected_zone_size != 0:
             from_starting_edge = Compass.path(self.protected_zone_start, angle)
@@ -73,10 +82,12 @@ class OneD(object):
 
     def border_path(self, start):# tested, works
         """
-        Uses <code>path(start, end)</code> to find the minor arc measure between start and the nearest zone border
+        Uses path(start, end) to find the minor arc measure between start and the nearest zone border
 
         start: degrees, can be positive, negative, huge, or tiny
         return arc measure in degrees (positive if the arc is clockwise of start, negative if it's counterclockwise of start)
+
+        @Author Hayden Shively
         """
         to_starting_edge = Compass.path(start, self.protected_zone_start)
         to_ending_edge = Compass.path(start, self.protected_zone_end)
@@ -91,6 +102,8 @@ class OneD(object):
         start: the first point, designated in degrees
         end: the second point, designated in degrees
         return arc measure in degrees (positive if the arc is clockwise of start, negative if it's counterclockwise of start)
+
+        @Author Hayden Shively
         """
         start_legal = self.legalize(start)
         path_escape = 0.0 if Compass.validate(start) == start_legal else self.border_path(start)
@@ -112,6 +125,8 @@ class OneD(object):
 
         angles: an array of angles in degrees
         return the standard deviation in degrees
+
+        @Author Hayden Shively
         """
         sins = sin(radians(angles))
         coss = cos(radians(angles))
@@ -127,6 +142,8 @@ class OneD(object):
         x: x coordinate
         y: y coordinate
         return the angle between the Y axis and (x, y) measured in degrees
+        
+        @Author Hayden Shively
         """
         return degrees(atan2(x, -y))
 
@@ -144,7 +161,7 @@ class ThreeD(object):
     def tare_angles(self):
         return [self.roll.tare_angle, self.pitch.tare_angle, self.yaw.tare_angle]
 
-    @tare_angle.setter
+    @tare_angles.setter
     def tare_angles(self, angles):
         self.roll.tare_angle = angles[0]
         self.pitch.tare_angle = angles[1]
