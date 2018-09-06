@@ -1,36 +1,38 @@
 from abc import ABC, abstractmethod
 class Odometer(ABC):
+    """
+    This class should be extended for a particular IMU or format of data in a text file.
+    It should handle all the position data.
+    """
     import Vector
 
     def __init__(self):
-        self.origin = ([0]*3)
+        self.origin = Vector([0]*3)
 
-    def set_origin(self, coords, relative_reference):
-        if relative_reference:
-            current = self.compass.tare_angles
-            new = [old + increment for (old, increment) in zip(current, angles)]
-            self.compass.tare_angles = new
+    def set_origin(self, xyz, relative_reference):
+        if relative_reference: self.origin += xyz
+        else:
+            if type(xyz) is list: self.origin = Vector(xyz)
+            else: self.origin = xyz
 
-        else: self.compass.tare_angles = angles
-
-    def path_to(target_orientation):
-        return self.compass.legal_path(self.orientation, target_orientation)
+    def path_to(target_position):
+        return target_position - self.position
 
     @property
     @abstractmethod
-    def roll(self):
+    def x(self):
         raise NotImplementedError
 
     @property
     @abstractmethod
-    def pitch(self):
+    def y(self):
         raise NotImplementedError
 
     @property
     @abstractmethod
-    def yaw(self):
+    def z(self):
         raise NotImplementedError
 
     @property
-    def orientation(self):
-        return [self.roll, self.pitch, self.yaw]
+    def position(self):
+        return Vector([self.x, self.y, self.z]) - self.origin

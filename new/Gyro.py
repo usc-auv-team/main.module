@@ -1,5 +1,9 @@
 from abc import ABC, abstractmethod
 class Gyro(ABC):
+    """
+    This class should be extended for a particular Gyro or format of data in a text file.
+    It should handle all the angle data.
+    """
     import Compass
 
     def __init__(self):
