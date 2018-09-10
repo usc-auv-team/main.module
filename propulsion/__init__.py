@@ -1,1 +1,1 @@
-import Robot2018.Robot2018 as Propulsion
+from .robot2018 import Robot2018

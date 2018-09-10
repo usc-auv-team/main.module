@@ -1,4 +1,6 @@
-from _abstract import Gyro
-#TODO from .. import ROS
+from ros import ROS
+
+from ._abstract import Gyro
 class FromROS(Gyro):
-    #TODO
+    def __init__(self):
+        pass

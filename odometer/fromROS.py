@@ -1,4 +1,6 @@
-from _abstract import Odometer
-#TODO from .. import ROS
+from ros import ROS
+
+from ._abstract import Odometer
 class FromROS(Odometer):
-    #TODO
+    def __init__(self):
+        pass

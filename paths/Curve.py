@@ -1,4 +1,4 @@
-from _abstract import Path
+from ._abstract import Path
 class Curve(Path):
     def __init__(self, xyz_lambda_function, start, end):
         self.function = xyz_lambda_function

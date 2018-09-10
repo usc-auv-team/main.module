@@ -1,2 +1,2 @@
-import fromROS.FromROS
-import simulation.Simulated
+from .fromROS import FromROS
+from .simulation import Simulated

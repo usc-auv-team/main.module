@@ -1,15 +1,16 @@
 """FINISHED"""
+import angle
+
 from abc import ABC, abstractmethod
 class Gyro(ABC):
     """
     Child classes should be polled anytime we need to get the robot's orientation
     """
-    import Angle
 
     def __init__(self):
-        # creates a ThreeD Angle class with no protected zones
+        # creates a ThreeD angle class with no protected zones
         # (gyro is a sensor, not a mechanism with movement constraints)
-        self.Angle = Angle.ThreeD([0.0]*3, [0.0]*3)
+        self.angle = angle.ThreeD([0.0]*3, [0.0]*3)
 
     def set_tare(self, angles, relative_reference):
         """
@@ -21,10 +22,10 @@ class Gyro(ABC):
         @Author Hayden Shively
         """
         if relative_reference:
-            new = [old + increment for (old, increment) in zip(self.Angle.tare_angles, angles)]
-            self.Angle.tare_angles = new
+            new = [old + increment for (old, increment) in zip(self.angle.tare_angles, angles)]
+            self.angle.tare_angles = new
 
-        else: self.Angle.tare_angles = angles
+        else: self.angle.tare_angles = angles
 
     def path_to(target_orientation):
         """
@@ -35,7 +36,7 @@ class Gyro(ABC):
 
         @Author Hayden Shively
         """
-        return self.Angle.legal_path(self.orientation, target_orientation)
+        return self.angle.legal_path(self.orientation, target_orientation)
 
     @property
     @abstractmethod
