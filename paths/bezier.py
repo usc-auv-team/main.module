@@ -10,7 +10,8 @@ class Bezier(Path):
         self.p2 = p2
         self.p3 = p3
         self.start = start
-        self._independent_variable = 0
+
+        self._independent_variable = 0.0
         self.xyz = self.p0
 
     def bezier_eqn(self, dimension):
