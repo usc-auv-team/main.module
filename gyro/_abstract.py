@@ -1,6 +1,8 @@
 """FINISHED"""
-import angle
+import sys
+sys.path.append('..')
 
+import angle
 from abc import ABC, abstractmethod
 class Gyro(ABC):
     """

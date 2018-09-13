@@ -1,5 +1,4 @@
 from ._abstract import Odometer
-import timeit
 import time
 
 class Simulated(Odometer):
@@ -7,7 +6,6 @@ class Simulated(Odometer):
         super().__init__()
         self.simulation_time = 1 #in minutes
         self.ideal_path = None
-        self.type = type(self.ideal_path)
         self.simulated_path = {} # a dictionary with time (msec) as key, and value of [x,y,z]
         self.simulation_start_time = time.time()
         pass
@@ -35,7 +33,7 @@ class Simulated(Odometer):
     # to simulate the actual current position in respect to time.
     def initiate_simulation(self, path):
         SIMULATION_TIME_MSEC = self.simulation_time * 60000 #5 minute in increments of 1 ms.
-        #create a noise generation function as a function of time. 
+        #create a noise generation function as a function of time.
         self.ideal_path = path
         simulated_data= {}
         for i in range(0,SIMULATION_TIME_MSEC):
@@ -43,11 +41,9 @@ class Simulated(Odometer):
             self.ideal_path.increment(increment)
             simulated_data[i] =  self.shift_position( self.ideal_path.target )
         self.simulated_path = simulated_data
-        
-    #function to generate noise in data to test correction vector    
-    #this first one simply shifts one dimension over by a number 
+
+    #function to generate noise in data to test correction vector
+    #this first one simply shifts one dimension over by a number
     def shift_position(self, xyz):
         xyz[0] += 10 #10 is randomly chosen number
         return xyz
-
-

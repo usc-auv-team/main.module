@@ -1,17 +1,16 @@
 """FINISHED"""
-import sys 
+import sys
 sys.path.append('..')
 
-import vector
+from vector import Vector
 from abc import ABC, abstractmethod
-
 class Odometer(ABC):
     """
     Child classes should be polled anytime we need to get the robot's position
     """
 
     def __init__(self):
-        self.origin = vector.Vector([0]*3)
+        self.origin = Vector([0]*3)
 
     def set_origin(self, xyz, relative_reference):
         """
@@ -24,7 +23,7 @@ class Odometer(ABC):
         """
         if relative_reference: self.origin += xyz
         else:
-            if type(xyz) is list: self.origin = vector(xyz)
+            if type(xyz) is list: self.origin = Vector(xyz)
             else: self.origin = xyz
 
     def path_to(target_position):
@@ -64,4 +63,4 @@ class Odometer(ABC):
 
     @property
     def position(self):
-        return vector([self.x, self.y, self.z]) - self.origin
+        return Vector([self.x, self.y, self.z]) - self.origin
