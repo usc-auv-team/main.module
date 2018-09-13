@@ -7,6 +7,7 @@ class Bezier(Path):
         self.p3 = p3
         self.start = start
 
+        self._independent_variable = 0.0
         self.xyz = self.p0
 
     def increment(self, amount):

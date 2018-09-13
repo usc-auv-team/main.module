@@ -18,12 +18,11 @@ class Leash(object):
             # otherwise, say we're done
             else: self.done_generating_targets = True
 
-    def get_actual_length(self, position_from_odometer):
-        difference = self.current_segment.target - position_from_odometer#TODO
-        return magnitude(difference)#TODO
+    def displacement_from_target(self, current_position):
+        return magnitude(self.target - current_position)#TODO
 
-    def maintain_length(self, position_from_odometer):
-        while !self.done_generating_targets and self.get_actual_length(position_from_odometer) < self.desired_length:
+    def maintain_length(self, current_position):
+        while !self.done_generating_targets and self.displacement_from_target(current_position) < self.desired_length:
             self.increment(self.growth_rate)
 
     @property
@@ -33,7 +32,6 @@ class Leash(object):
     @property
     def independent_variable(self):
         return self.current_segment.independent_variable
-
 
     @property
     def current_segment(self):
