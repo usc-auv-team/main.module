@@ -29,7 +29,7 @@ class Gyro(ABC):
 
         else: self.angle.tare_angles = angles
 
-    def path_to(target_orientation):
+    def path_to(self, target_orientation):
         """
         Finds shortest path from the current orientation to target_orientation
 

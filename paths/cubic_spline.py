@@ -1,6 +1,6 @@
-from ._abstract import Path
+from vector import Vector
 
-# Each point is a [x,y,z] position in units of meters
+from ._abstract import Path
 class CubicSpline(Path):
     def __init__(self, p0, p1, p2, p3, start):
         self.p0 = p0
@@ -31,7 +31,7 @@ class CubicSpline(Path):
 
     @property
     def target(self):
-        return self.xyz
+        return Vector(self.xyz)
 
     @property
     def independent_variable(self):

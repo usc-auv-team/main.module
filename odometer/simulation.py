@@ -1,49 +1,29 @@
+import math
+
 from ._abstract import Odometer
-import time
-
 class Simulated(Odometer):
-    def __init__(self):
+    def __init__(self, update_hz):
         super().__init__()
-        self.simulation_time = 1 #in minutes
-        self.ideal_path = None
-        self.simulated_path = {} # a dictionary with time (msec) as key, and value of [x,y,z]
-        self.simulation_start_time = time.time()
-        pass
+        self.elapsed_time = 1.0/update_hz
 
-    def __str__(self):
-        return "%s %s %s" % (self.x,self.y,self.z)
-
-    def get_current_time_msec(self):
-        simulation_time = 1000* ( time.time() - self.simulation_start_time )
-        return int(simulation_time)
+        self._x, self._y, self._z = [0.0, 0.0, 0.0]
 
     @property
     def x(self):
-        return self.simulated_path[self.get_current_time_msec()][0]
+        return self._x
 
     @property
     def y(self):
-        return self.simulated_path[self.get_current_time_msec()][1]
+        return self._y
 
     @property
     def z(self):
-        return self.simulated_path[self.get_current_time_msec()][2]
+        return self._z
 
-    # takes a ideal path (bezier) and creates a noisy version and add a time intervals,
-    # to simulate the actual current position in respect to time.
-    def initiate_simulation(self, path):
-        SIMULATION_TIME_MSEC = self.simulation_time * 60000 #5 minute in increments of 1 ms.
-        #create a noise generation function as a function of time.
-        self.ideal_path = path
-        simulated_data= {}
-        for i in range(0,SIMULATION_TIME_MSEC):
-            increment = 1.0/SIMULATION_TIME_MSEC
-            self.ideal_path.increment(increment)
-            simulated_data[i] =  self.shift_position( self.ideal_path.target )
-        self.simulated_path = simulated_data
+    def complete_loop_update(self, gyro, propulsion):
+        direction = math.radians(gyro.yaw)
+        speed_x = propulsion.speed*math.sin(direction)
+        speed_y = propulsion.speed*math.cos(direction)
 
-    #function to generate noise in data to test correction vector
-    #this first one simply shifts one dimension over by a number
-    def shift_position(self, xyz):
-        xyz[0] += 10 #10 is randomly chosen number
-        return xyz
+        self._x += self.elapsed_time*speed_x
+        self._y += self.elapsed_time*speed_y

@@ -1,3 +1,5 @@
+from vector import Vector
+
 from ._abstract import Path
 class PointList(Path):#TODO is this really necessary? could really be done by just giving Leash a series of points
     from math import ceil
@@ -25,7 +27,7 @@ class PointList(Path):#TODO is this really necessary? could really be done by ju
 
     @property
     def target(self):
-        return self.xyz
+        return Vector(self.xyz)
 
     @property
     def independent_variable(self):

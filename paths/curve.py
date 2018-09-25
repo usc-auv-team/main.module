@@ -1,3 +1,5 @@
+from vector import Vector
+
 from ._abstract import Path
 class Curve(Path):
     def __init__(self, xyz_lambda_function, start, end):
@@ -12,7 +14,7 @@ class Curve(Path):
 
     @property
     def target(self):
-        return self.function(self._independent_variable)
+        return Vector(self.function(self._independent_variable))
 
     @property
     def independent_variable(self):

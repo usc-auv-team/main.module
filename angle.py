@@ -68,8 +68,8 @@ class OneD(object):
         @Author Hayden Shively
         """
         if self.protected_zone_size != 0:
-            from_starting_edge = Compass.path(self.protected_zone_start, angle)
-            to_ending_edge = Compass.path(angle, self.protected_zone_end)
+            from_starting_edge = OneD.path(self.protected_zone_start, angle)
+            to_ending_edge = OneD.path(angle, self.protected_zone_end)
 
             if from_starting_edge < 0.0:
                 from_starting_edge += 360.0
@@ -78,7 +78,7 @@ class OneD(object):
             if 0.0 < from_starting_edge and from_starting_edge < self.protected_zone_size:
                 angle = self.protected_zone_start if from_starting_edge <= abs(to_ending_edge) else self.protected_zone_end
 
-        return Compass.validate(angle)
+        return OneD.validate(angle)
 
     def border_path(self, start):# tested, works
         """
@@ -89,8 +89,8 @@ class OneD(object):
 
         @Author Hayden Shively
         """
-        to_starting_edge = Compass.path(start, self.protected_zone_start)
-        to_ending_edge = Compass.path(start, self.protected_zone_end)
+        to_starting_edge = OneD.path(start, self.protected_zone_start)
+        to_ending_edge = OneD.path(start, self.protected_zone_end)
 
         return to_starting_edge if abs(to_starting_edge) <= abs(to_ending_edge) else to_ending_edge
 
@@ -106,14 +106,14 @@ class OneD(object):
         @Author Hayden Shively
         """
         start_legal = self.legalize(start)
-        path_escape = 0.0 if Compass.validate(start) == start_legal else self.border_path(start)
-        path_main = Compass.path(start_legal, self.legalize(end))
+        path_escape = 0.0 if OneD.validate(start) == start_legal else self.border_path(start)
+        path_main = OneD.path(start_legal, self.legalize(end))
 
         if self.protected_zone_size != 0:
             path_border = self.border_path(start_legal)
 
             comparator = 0 if path_border == 0 else 1
-            if path_border == 0: path_border = Compass.path(start_legal, self.protected_zone_start + self.protected_zone_size/2.0)
+            if path_border == 0: path_border = OneD.path(start_legal, self.protected_zone_start + self.protected_zone_size/2.0)
             if path_main/path_border > comparator: path_main -= copysign(360.0, path_main)
 
         return path_main + path_escape
@@ -142,10 +142,10 @@ class OneD(object):
         x: x coordinate
         y: y coordinate
         return the angle between the Y axis and (x, y) measured in degrees
-        
+
         @Author Hayden Shively
         """
-        return degrees(atan2(x, -y))
+        return degrees(atan2(x, y))
 
     @property
     def protected_zone_end(self):# tested, works
@@ -167,5 +167,5 @@ class ThreeD(object):
         self.pitch.tare_angle = angles[1]
         self.yaw.tare_angle = angles[2]
 
-    def legal_path(self, starts, ends):
+    def legal_path(self, start, end):
         return [self.roll.legal_path(start[0], end[0]), self.pitch.legal_path(start[1], end[1]), self.yaw.legal_path(start[2], end[2])]
