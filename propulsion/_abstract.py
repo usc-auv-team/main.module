@@ -41,11 +41,10 @@ class Propulsion(ABC):
         pass
 
     @abstractmethod
-    def face(self, orientation, max_outputs):
+    def face(self, heading):
         """
         Should adjust the direction in which the front of the robot points using PID
-        orientation: which direction the front should face, designated in degrees
-        max_outputs: the maximum values that can be passed into set_spin(spins) to achieve that orientation
+        heading: which direction the front should face, designated in degrees
         return error between desired orientation and actual orientation, designated in degrees
         """
         pass
