@@ -12,7 +12,7 @@ class Simulated(Propulsion):#TODO need depth stuff somewhere in here
     MAX_ACCEL = 0.1# meters per second^2
 
     MAX_ANGULAR_SPEED = 10.0# degrees per second
-    MAX_ANGULAR_ACCEL = 1.0# degrees per second^2
+    MAX_ANGULAR_ACCEL = 3.0# degrees per second^2
 
     def __init__(self, gyro, update_hz):
         self.gyro = gyro
@@ -34,14 +34,14 @@ class Simulated(Propulsion):#TODO need depth stuff somewhere in here
     def travel_towards(self, heading):
         return self.face(heading)
 
-    def correct_for(self, error_vector, P = 0.01):
+    def correct_for(self, error_vector, P = 0.05):
         target_yaw = OneD.convert_to_angle(error_vector.x, error_vector.y)
 
         if abs(self.travel_towards(target_yaw)) < 5.0:
             xy_magnitude = (error_vector.x**2 + error_vector.y**2)**0.5
             self.set_speed(xy_magnitude*P)# TODO could use PID for more realism
 
-    def face(self, heading, P = 0.01):
+    def face(self, heading, P = 0.05):
         error = self.gyro.path_to([0.0, 0.0, heading])[2]
         self.set_spin(error*P)# TODO could use PID for more realism
         return error
