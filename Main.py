@@ -1,7 +1,8 @@
 simulating = True
 
 if __name__ == '__main__':
-
+    #TODO move point definitions to a strategy
+    #TODO move visualizer stuff to separate class
 
     if simulating:
         from gyro.simulation import Simulated as Gyro
