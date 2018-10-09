@@ -21,12 +21,10 @@ class Propulsion(ABC):
         pass
 
     @abstractmethod
-    def travel_towards(self, heading):
+    def set_depth_speed(self, speed):
         """
-        Should control the direction in which the robot moves
-        If the system is set up such that the front must be facing the direction of travel,
-        face(heading, maximumOutput) should be called before moving.
-        heading: the desired direction of travel, designated in degrees
+        Should control how fast the robot ascends or descends
+        speed: likely a percentage in the range [-1, 1]
         """
         pass
 
@@ -37,6 +35,16 @@ class Propulsion(ABC):
         This can usually be accomplished using just travelTowards(heading) and setSpeed(speed)
         error_direction: the direction in which the robot should travel to decrease the error, designated in degrees
         error_magnitude: some indication of the size of the error that can be fed into PID
+        """
+        pass
+
+    @abstractmethod
+    def travel_towards(self, heading):
+        """
+        Should control the direction in which the robot moves
+        If the system is set up such that the front must be facing the direction of travel,
+        face(heading, maximumOutput) should be called before moving.
+        heading: the desired direction of travel, designated in degrees
         """
         pass
 

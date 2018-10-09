@@ -20,9 +20,9 @@ if __name__ == '__main__':
 
         from paths.cubic_spline import CubicSpline
         p0 = [0,0,0]#TODO because of current simulation constraints Z must stay 0
-        p1 = [3,60,0]
-        p2 = [70,10,0]
-        p3 = [70,70,0]
+        p1 = [3,60,-1]
+        p2 = [70,10,-2]
+        p3 = [70,70,-3]
         ideal_path = CubicSpline(p0, p1, p2, p3, 0.0)
 
         from planning.leash import Leash
