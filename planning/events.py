@@ -20,7 +20,7 @@ class Events(object):
         self.step = -1
         self.done_running = len(self.commands) == 0
 
-    def check(independent_variable):
+    def check(self, independent_variable):
         """
         If not done_running, increments step when independent_variable has reached a trigger
         If step is the last index of commands, done_running will be set to true
@@ -33,7 +33,7 @@ class Events(object):
             self.step += 1
             if self.step + 2 > len(self.triggers): self.done_running = True
 
-    def execute(propulsion, subsystems):
+    def execute(self, propulsion, subsystems):
         """
         Runs the function in commands[step]
         """
