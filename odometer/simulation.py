@@ -1,3 +1,4 @@
+"""FINISHED"""
 import math
 
 from ._abstract import Odometer
@@ -21,9 +22,15 @@ class Simulated(Odometer):
         return self._z
 
     def complete_loop_update(self, gyro, propulsion):
+        """
+        Update x and y by integrating speed over small time interval
+        Speed is obtained from simulated propulsion instance
+        """
         direction = math.radians(gyro.yaw)
+        # break speed into x and y components
         speed_x = propulsion.speed*math.sin(direction)
         speed_y = propulsion.speed*math.cos(direction)
-
+        # integrate
         self._x += self.elapsed_time*speed_x
         self._y += self.elapsed_time*speed_y
+        self._z += self.elapsed_time*propulsion.depth_speed

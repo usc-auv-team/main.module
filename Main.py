@@ -1,54 +1,43 @@
+class Visualizer(object):
+    def __init__(self):
+        import cv2
+        self.cv2 = cv2
+        from numpy import zeros
+
+        self.counter = 0
+        self.position_graph = zeros((800, 800, 3), dtype = 'uint8')
+
+    def position(self, x, y, z, every = 100):
+        if self.counter%every is 0:
+            blue = 255 + 50*z# color represents depth
+            self.cv2.circle(self.position_graph, (int(10*x), 800 - int(10*y)), 5, (blue, 255, 0), -1)
+            self.cv2.imshow('position', self.position_graph)
+            self.cv2.waitKey(1)
+
+        self.counter += 1
+
 simulating = True
 
 if __name__ == '__main__':
-
-
     if simulating:
         from gyro.simulation import Simulated as Gyro
         from odometer.simulation import Simulated as Odometer
         from propulsion.simulation import Simulated as Propulsion
-        # optional import for visualizer
-        import numpy as np
-        import cv2
-        display = np.zeros((800, 800, 3), dtype = 'uint8')
-        counter = 0
-        # end optional import
+        from planning.s2018.test import TestA
 
         gyro = Gyro(30.0)
         odometer = Odometer(30.0)
         propulsion = Propulsion(gyro, 30.0)
+        strategy = TestA(gyro, odometer)
 
-        from paths.cubic_spline import CubicSpline
-        p0 = [0,0,0]#TODO because of current simulation constraints Z must stay 0
-        p1 = [3,60,0]
-        p2 = [70,10,0]
-        p3 = [70,70,0]
-        ideal_path = CubicSpline(p0, p1, p2, p3, 0.0)
-
-        from planning.leash import Leash
-        leash = Leash([ideal_path], length = 1.0, growth_rate = 0.01)
+        visualizer = Visualizer()
 
         while True:
             try:
+                strategy.run(propulsion, [])
 
-                leash.maintain_length(odometer.position)
-                propulsion.correct_for(leash.target - odometer.position)
-                # command line output
                 print(odometer.position.xyz)
-                # end command line output
-                # visualizer output
-                if counter%100 is 0:
-                    cv2.circle(display, (int(10*leash.target.x), 800 - int(10*leash.target.y)), 10, (255, 127, 0), -1)
-                    cv2.circle(display, (int(10*odometer.position.x), 800 - int(10*odometer.position.y)), 5, (0, 255, 255), -1)
-                    cv2.imshow('path', display)
-                    cv2.waitKey(1)
-                counter += 1
-                # end visualizer output
-
-                gyro.complete_loop_update(propulsion)
-                odometer.complete_loop_update(gyro, propulsion)
-                propulsion.complete_loop_update()
-
+                visualizer.position(odometer.position.x, odometer.position.y, odometer.position.z)
             except KeyboardInterrupt:
                 break
 
