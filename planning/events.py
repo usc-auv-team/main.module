@@ -33,7 +33,7 @@ class Events(object):
             self.step += 1
             if self.step + 2 > len(self.triggers): self.done_running = True
 
-    def execute(self, propulsion, subsystems):
+    def execute(self, propulsion, subsystems):#TODO run once versus continuously
         """
         Runs the function in commands[step]
         """

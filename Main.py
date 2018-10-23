@@ -23,12 +23,12 @@ if __name__ == '__main__':
         from gyro.simulation import Simulated as Gyro
         from odometer.simulation import Simulated as Odometer
         from propulsion.simulation import Simulated as Propulsion
-        from planning.s2018.test import TestA
+        from planning.s2018.test import TestB
 
         gyro = Gyro(30.0)
         odometer = Odometer(30.0)
         propulsion = Propulsion(gyro, 30.0)
-        strategy = TestA(gyro, odometer)
+        strategy = TestB(gyro, odometer)
 
         visualizer = Visualizer()
 
@@ -42,6 +42,6 @@ if __name__ == '__main__':
                 break
 
     else:
-        from gyro.fromROS import FromROS as Gyro
-        from odometer.fromROS import FromROS as Odometer
+        from gyro.ros_gyro import ROS_Gyro as Gyro
+        from odometer.ros_odometer import ROS_Odometer as Odometer
         from propulsion.robot2018 import Robot2018 as Propulsion
