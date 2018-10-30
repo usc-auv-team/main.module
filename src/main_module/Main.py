@@ -21,12 +21,12 @@ def main(simulating = False):
         from gyro.simulation import Simulated as Gyro
         from odometer.simulation import Simulated as Odometer
         from propulsion.simulation import Simulated as Propulsion
-        from planning.s2018.test import TestA
+        from planning.s2018.test import TestB
 
         gyro = Gyro(30.0)
         odometer = Odometer(30.0)
         propulsion = Propulsion(gyro, 30.0)
-        strategy = TestA(gyro, odometer)
+        strategy = TestB(gyro, odometer)
 
         visualizer = Visualizer()
 
