@@ -16,9 +16,7 @@ class Visualizer(object):
 
         self.counter += 1
 
-simulating = True
-
-if __name__ == '__main__':
+def main(simulating = False):
     if simulating:
         from gyro.simulation import Simulated as Gyro
         from odometer.simulation import Simulated as Odometer
@@ -45,3 +43,7 @@ if __name__ == '__main__':
         from gyro.fromROS import FromROS as Gyro
         from odometer.fromROS import FromROS as Odometer
         from propulsion.robot2018 import Robot2018 as Propulsion
+
+
+if __name__ == '__main__':
+    main(simulating = True)
