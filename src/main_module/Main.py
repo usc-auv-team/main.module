@@ -40,8 +40,8 @@ def main(simulating = False):
                 break
 
     else:
-        from gyro.fromROS import FromROS as Gyro
-        from odometer.fromROS import FromROS as Odometer
+        from gyro.ros_gyro import ROS_Gyro as Gyro
+        from odometer.ros_odometer import ROS_Odometer as Odometer
         from propulsion.robot2018 import Robot2018 as Propulsion
 
 
