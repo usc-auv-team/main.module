@@ -21,8 +21,6 @@ class PointList(Path):#TODO is this really necessary? could really be done by ju
 
         current_segment = target_point - passed_point#TODO assumes vectors
         self.xyz = passed_point + (self._independent_variable%1.0)*current_segment#TODO assumes vectors
-
-        super().increment(amount)
         return True
 
     @property

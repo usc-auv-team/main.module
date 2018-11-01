@@ -4,7 +4,13 @@ import math
 from ._abstract import Odometer
 class Simulated(Odometer):
     def __init__(self, update_hz):
-        super().__init__()
+
+        import sys
+        version = sys.version_info[0]
+        if version == 2: super(Simulated, self).__init__()# Python 2
+        else: super().__init__()# Python 3
+        del sys
+        
         self.elapsed_time = 1.0/update_hz
 
         self._x, self._y, self._z = [0.0, 0.0, 0.0]

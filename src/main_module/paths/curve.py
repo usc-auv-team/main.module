@@ -9,7 +9,6 @@ class Curve(Path):
 
     def increment(self, amount):
         self._independent_variable += amount
-        super().increment(amount)
         return self._independent_variable < self.end
 
     @property

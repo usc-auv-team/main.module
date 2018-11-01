@@ -6,7 +6,11 @@ from planning.strategy import *
 class TestA(Strategy):
 
     def __init__(self, gyro, odometer):
-        super().__init__(gyro, odometer)
+        import sys
+        version = sys.version_info[0]
+        if version == 2: super(TestA, self).__init__(gyro, odometer)# Python 2
+        else: super().__init__(gyro, odometer)# Python 3
+        del sys
         """
         use this space to set instance variables that
         get_leash or get_events may depend on
@@ -14,7 +18,7 @@ class TestA(Strategy):
         also use this space to set odometer origin
         """
         # now ready to init
-        super().init()
+        self.init()
 
     def _get_leash(self):
         p0 = [0,0,0]
@@ -35,14 +39,19 @@ class TestA(Strategy):
 
 class TestB(Strategy):
     def __init__(self, gyro, odometer):
-        super().__init__(gyro, odometer)
+        import sys
+        version = sys.version_info[0]
+        if version == 2: super(TestB, self).__init__(gyro, odometer)# Python 2
+        else: super().__init__(gyro, odometer)# Python 3
+        del sys
         """
         use this space to set instance variables that
         get_leash or get_events may depend on
+
         also use this space to set odometer origin
         """
         # now ready to init
-        super().init()
+        self.init()
 
     def _get_leash(self):
         p0 = [0,0,0]

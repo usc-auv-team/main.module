@@ -1,13 +1,39 @@
 """FINISHED"""
 import sys
-sys.path.append('..')
+
+try:
+    # works when ROS manages path
+    from .. import vector
+except:
+    # works when ROS isn't involved
+    sys.path.append('..')
+    import vector
 
 from vector import Vector
-from abc import ABC, abstractmethod
-class Odometer(ABC):
+del vector
+
+version = sys.version_info[0]
+if version == 2:
+    from abc import ABCMeta, abstractmethod, abstractproperty
+    superclass = object
+elif version == 3:
+    from abc import ABC, abstractmethod
+    superclass = ABC
+else:
+    print('This version of Python is unsupported.')
+
+
+def compatible_abstractproperty(function):
+    if version == 2: return abstractproperty(function)
+    elif version == 3: return property(abstractmethod(function))
+    else: return function
+
+
+class Odometer(superclass):
     """
     Child classes should be polled anytime we need to get the robot's position
     """
+    if version == 2: __metaclass__ = ABCMeta
 
     def __init__(self):
         self.origin = Vector([0]*3)
@@ -37,24 +63,21 @@ class Odometer(ABC):
         """
         return target_position - self.position
 
-    @property
-    @abstractmethod
+    @compatible_abstractproperty
     def x(self):
         """
         Extend to retrieve current x position from hardware, txt, or ROS
         """
         raise NotImplementedError
 
-    @property
-    @abstractmethod
+    @compatible_abstractproperty
     def y(self):
         """
         Extend to retrieve current y position from hardware, txt, or ROS
         """
         raise NotImplementedError
 
-    @property
-    @abstractmethod
+    @compatible_abstractproperty
     def z(self):
         """
         Extend to retrieve current z position from hardware, txt, or ROS

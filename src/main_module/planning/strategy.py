@@ -1,7 +1,20 @@
+import sys
+
+version = sys.version_info[0]
+if version == 2:
+    from abc import ABCMeta, abstractmethod
+    superclass = object
+elif version == 3:
+    from abc import ABC, abstractmethod
+    superclass = ABC
+else:
+    print('This version of Python is unsupported.')
+
+
 from .leash import Leash
 from .events import Events
-from abc import ABC, abstractmethod
-class Strategy(ABC):
+class Strategy(superclass):
+    if version == 2: __metaclass__ = ABCMeta
 
     def __init__(self, gyro, odometer):
         self.gyro = gyro

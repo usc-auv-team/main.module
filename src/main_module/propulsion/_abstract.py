@@ -1,9 +1,23 @@
-from abc import ABC, abstractmethod
-class Propulsion(ABC):
+import sys
+
+version = sys.version_info[0]
+if version == 2:
+    from abc import ABCMeta, abstractmethod
+    superclass = object
+elif version == 3:
+    from abc import ABC, abstractmethod
+    superclass = ABC
+else:
+    print('This version of Python is unsupported.')
+
+
+class Propulsion(superclass):
     """
     A set of common methods which can be implemented for most propulsion systems
     Having them all abstract makes it easier to write reusable code
     """
+    if version == 2: __metaclass__ = ABCMeta
+
     @abstractmethod
     def set_speed(self, speed):
         """

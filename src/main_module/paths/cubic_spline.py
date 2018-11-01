@@ -26,7 +26,6 @@ class CubicSpline(Path):
 
         self.xyz = [x, y, z]
 
-        super().increment(amount)
         return True
 
     @property

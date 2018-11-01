@@ -1,13 +1,36 @@
 """FINISHED"""
-#import sys
-#sys.path.append('..')
+import sys
 
-from .. import angle
-from abc import ABC, abstractmethod
-class Gyro(ABC):
+try:
+    # works when ROS manages path
+    from .. import angle
+except:
+    # works when ROS isn't involved
+    sys.path.append('..')
+    import angle
+
+version = sys.version_info[0]
+if version == 2:
+    from abc import ABCMeta, abstractmethod, abstractproperty
+    superclass = object
+elif version == 3:
+    from abc import ABC, abstractmethod
+    superclass = ABC
+else:
+    print('This version of Python is unsupported.')
+
+
+def compatible_abstractproperty(function):
+    if version == 2: return abstractproperty(function)
+    elif version == 3: return property(abstractmethod(function))
+    else: return function
+
+
+class Gyro(superclass):
     """
     Child classes should be polled anytime we need to get the robot's orientation
     """
+    if version == 2: __metaclass__ = ABCMeta
 
     def __init__(self):
         # creates a ThreeD angle class with no protected zones
@@ -26,7 +49,6 @@ class Gyro(ABC):
         if relative_reference:
             new = [old + increment for (old, increment) in zip(self.angle.tare_angles, angles)]
             self.angle.tare_angles = new
-
         else: self.angle.tare_angles = angles
 
     def path_to(self, target_orientation):
@@ -40,24 +62,21 @@ class Gyro(ABC):
         """
         return self.angle.legal_path(self.orientation, target_orientation)
 
-    @property
-    @abstractmethod
+    @compatible_abstractproperty
     def roll(self):
         """
         Extend to retrieve current roll from hardware, txt, or ROS
         """
         raise NotImplementedError
 
-    @property
-    @abstractmethod
+    @compatible_abstractproperty
     def pitch(self):
         """
         Extend to retrieve current pitch from hardware, txt, or ROS
         """
         raise NotImplementedError
 
-    @property
-    @abstractmethod
+    @compatible_abstractproperty
     def yaw(self):
         """
         Extend to retrieve current yaw from hardware, txt, or ROS
