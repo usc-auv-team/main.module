@@ -18,6 +18,7 @@ class Events(object):
 
     def init(self):
         self.step = -1
+        self.step_command_call_count = 0
         self.done_running = len(self.commands) == 0
 
     def check(self, independent_variable):
@@ -31,10 +32,13 @@ class Events(object):
         if not self.done_running and independent_variable >= self.triggers[self.step + 1]:
             # move on when the independent variable is greater than the trigger value
             self.step += 1
+            self.step_command_call_count = 0
             if self.step + 2 > len(self.triggers): self.done_running = True
 
     def execute(self, propulsion, subsystems):#TODO run once versus continuously
         """
         Runs the function in commands[step]
         """
-        if self.step > -1: self.commands[self.step](propulsion, subsystems)
+        if self.step > -1:
+            self.commands[self.step](propulsion, subsystems, self.step_command_call_count)
+            self.step_command_call_count += 1

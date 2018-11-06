@@ -70,7 +70,8 @@ class TestB(Strategy):
         return Events([TestB._say_hi], [0.5])
 
     @staticmethod
-    def _say_hi(propulsion, subsystems):
-        print('Running Event:')
-        print('Hello!')
-        print('')
+    def _say_hi(propulsion, subsystems, call_count):
+        if call_count is 0:
+            print('Running Event:')
+            print('Hello!')
+            print('')
