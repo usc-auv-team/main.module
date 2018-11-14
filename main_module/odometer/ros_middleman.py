@@ -1,5 +1,5 @@
 from ._abstract import Odometer
-class ROS_Odometer(Odometer):
+class Middleman(Odometer):
     def __init__(self):
 
         import sys
@@ -22,11 +22,8 @@ class ROS_Odometer(Odometer):
     def z(self):
         return self._z
 
-    def callback_on_new_roll(self, value):
-        self._x = value
-
-    def callback_on_new_pitch(self, value):
-        self._y = value
-
-    def callback_on_new_yaw(self, value):
-        self._z = value
+    def callback(self, new_message):
+        """value should be in meters"""
+        self._x = new_message.x_meters
+        self._y = new_message.y_meters
+        self._z = new_message.z_meters

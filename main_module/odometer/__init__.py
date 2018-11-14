@@ -1,1 +1,1 @@
-__all__ = ['disconnected', 'ros_odometer', 'simulation']
+__all__ = ['disconnected', 'ros_middleman', 'simulation']

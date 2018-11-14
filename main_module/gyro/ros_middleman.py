@@ -1,5 +1,5 @@
 from ._abstract import Gyro
-class ROS_Gyro(Gyro):
+class Middleman(Gyro):
     def __init__(self):
 
         import sys
@@ -22,14 +22,8 @@ class ROS_Gyro(Gyro):
     def yaw(self):
         return self._yaw
 
-    def callback_on_new_roll(self, value):
+    def callback(self, new_message):
         """value should be in degrees"""
-        self._roll = value
-
-    def callback_on_new_pitch(self, value):
-        """value should be in degrees"""
-        self._pitch = value
-
-    def callback_on_new_yaw(self, value):
-        """value should be in degrees"""
-        self._yaw = value
+        self._roll = new_message.roll_degrees
+        self._pitch = new_message.pitch_degrees
+        self._yaw = new_message.yaw_degrees

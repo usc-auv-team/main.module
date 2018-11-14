@@ -1,1 +1,1 @@
-__all__ = ['robot2018', 'simulation']
+__all__ = ['ros_middleman', 'simulation']
