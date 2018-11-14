@@ -4,7 +4,7 @@ class Middleman(Gyro):
 
         import sys
         version = sys.version_info[0]
-        if version == 2: super(Simulated, self).__init__()# Python 2
+        if version == 2: super(Middleman, self).__init__()# Python 2
         else: super().__init__()# Python 3
         del sys
 

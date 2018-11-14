@@ -43,8 +43,4 @@ class Strategy(superclass):
     def _stay_on_path(self, propulsion):
         self.leash.maintain_length(self.odometer.position)
         propulsion.correct_for(self.leash.target - self.odometer.position)
-
-        # TODO some of these updates are specific to simulation
-        self.gyro.complete_loop_update(propulsion)
-        self.odometer.complete_loop_update(self.gyro, propulsion)
         propulsion.complete_loop_update()

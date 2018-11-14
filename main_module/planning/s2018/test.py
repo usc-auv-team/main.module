@@ -110,7 +110,7 @@ class SinWave(Strategy):
         self.init()
 
     def _get_leash(self):
-        my_lambda = lambda t: [4.0*sin(t), 2.0*t, -3]
+        my_lambda = lambda t: [4.0*sin(t), 2.0*t, -0.25*t]
         path0 = Curve(my_lambda, 0.0, 8*3.1415)
         return Leash([path0], 0.75, 0.01)
 

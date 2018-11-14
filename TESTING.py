@@ -35,6 +35,8 @@ def main(simulating = False):
         while True:
             try:
                 strategy.run(propulsion, [])
+                gyro.complete_loop_update(propulsion)
+                odometer.complete_loop_update(gyro, propulsion)
                 # print(odometer.position.xyz)
                 visualizer.position(odometer.position.x, odometer.position.y, odometer.position.z)
             except KeyboardInterrupt:

@@ -28,7 +28,7 @@ class Middleman(Propulsion):
         self.desired_delta_depth = error_vector.z
         yaw_target = OneD.convert_to_angle(error_vector.x, error_vector.y)
 
-        if abs(self.travel_towards(yaw_target)) < Robot2018.MAX_YAW_ERROR_WHILE_TRANSLATING:
+        if abs(self.travel_towards(yaw_target)) < Middleman.MAX_YAW_ERROR_WHILE_TRANSLATING:
             error_magnitude_xy = (error_vector.x**2 + error_vector.y**2)**0.5
             self.set_speed(error_magnitude_xy*P)# TODO use full PID
 
@@ -47,3 +47,13 @@ class Middleman(Propulsion):
         message.desired_degrees_yaw = self.yaw_target
         message.desired_percent_speed = self.speed_target
         return message
+
+    def set_spin(self, spin):
+        pass
+
+    def set_depth_speed(self, speed):
+        pass
+
+    def complete_loop_update(self):
+        pass
+
