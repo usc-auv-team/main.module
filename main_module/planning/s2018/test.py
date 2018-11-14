@@ -2,7 +2,7 @@ import sys
 sys.path.append('..')
 
 from main_module.paths.cubic_spline import CubicSpline
-from main_module.planning.strategy import *
+from ..strategy import *
 class TestA(Strategy):
 
     name = 'Skewed Figure-Eight'
@@ -87,3 +87,32 @@ class TestB(Strategy):
             print('Running Event:')
             print('Goodbye!')
             print('')
+
+from math import sin
+from main_module.paths.curve import Curve
+class SinWave(Strategy):
+
+    name = 'sin wave'
+
+    def __init__(self, gyro, odometer):
+        import sys
+        version = sys.version_info[0]
+        if version == 2: super(SinWave, self).__init__(gyro, odometer)# Python 2
+        else: super().__init__(gyro, odometer)# Python 3
+        del sys
+        """
+        use this space to set instance variables that
+        get_leash or get_events may depend on
+
+        also use this space to set odometer origin
+        """
+        # now ready to init
+        self.init()
+
+    def _get_leash(self):
+        my_lambda = lambda t: [4.0*sin(t), 2.0*t, -3]
+        path0 = Curve(my_lambda, 0.0, 8*3.1415)
+        return Leash([path0], 0.75, 0.01)
+
+    def _get_events(self):
+        return Events([], [])

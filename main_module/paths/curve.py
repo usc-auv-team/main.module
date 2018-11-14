@@ -26,7 +26,7 @@ lambda t: [x(t), y(t), z(t)]
 
 usage example:
 my_func = lambda t: [t, t**2, t**3]
-my_curve = P_Curve(my_func, 0.0, 3.0)
+my_curve = Curve(my_func, 0.0, 3.0)
 
 while my_curve.increment(0.5):
     print(my_curve.target)
