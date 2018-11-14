@@ -1,8 +1,0 @@
-#!/usr/bin/env python
-
-print('testing worked!')
-
-from main_module import main
-
-if __name__ == '__main__':
-    main(simulating = True)

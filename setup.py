@@ -1,11 +1,20 @@
-#!/usr/bin/env python
+import setuptools
 
-from distutils.core import setup
-from catkin_pkg.python_setup import generate_distutils_setup
+with open('README.md', 'r') as fh:
+    long_description = fh.read()
 
-setup_args = generate_distutils_setup(
-    packages = ['main_module'],
-    package_dir = {'': 'src'}
+setuptools.setup(
+name = 'main_module',
+version = '0.0.1',
+author = 'USC AUV Team',
+author_email = 'hshively@usc.edu',
+description = 'Logic for autonomous path following and task execution',
+long_description = long_description,
+long_description_content_type = 'text/markdown',
+url = 'https://github.com/usc-auv-team/main.module',
+packages = setuptools.find_packages(),
+classifiers = [
+    'Programming Language :: Python',
+    'Operating System :: OS Independent',
+],
 )
-
-setup(**setup_args)
