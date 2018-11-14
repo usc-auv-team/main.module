@@ -7,7 +7,7 @@ build/install instructions:
 3) cd dist
 4) pip3 install main_module-0.0.1-py3-none-any.whl  
   
-You can also download the wheel here: hhttps://github.com/usc-auv-team/main.module/releases/tag/0.0.1
+You can also download the wheel here: https://github.com/usc-auv-team/main.module/releases/tag/0.0.1
   
   
   
