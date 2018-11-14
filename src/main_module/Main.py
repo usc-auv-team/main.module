@@ -34,7 +34,7 @@ def main(simulating = False):
             try:
                 strategy.run(propulsion, [])
 
-                print(odometer.position.xyz)
+                # print(odometer.position.xyz)
                 visualizer.position(odometer.position.x, odometer.position.y, odometer.position.z)
             except KeyboardInterrupt:
                 break

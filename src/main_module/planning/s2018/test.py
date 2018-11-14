@@ -67,11 +67,18 @@ class TestB(Strategy):
         return Leash([path0, path1], 1.0, 0.01)
 
     def _get_events(self):
-        return Events([TestB._say_hi], [0.5])
+        return Events([TestB._say_hi, TestB._say_goodbye], [0.5, 1.5])
 
     @staticmethod
     def _say_hi(propulsion, subsystems, call_count):
         if call_count is 0:
             print('Running Event:')
             print('Hello!')
+            print('')
+
+    @staticmethod
+    def _say_goodbye(propulsion, subsystems, call_count):
+        if call_count is 0:
+            print('Running Event:')
+            print('Goodbye!')
             print('')
