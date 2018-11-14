@@ -7,6 +7,9 @@ build/install instructions:
 3) cd dist
 4) pip3 install main_module-0.0.1-py3-none-any.whl  
   
+You can also download the wheel here: https://drive.google.com/open?id=1oR2eWiqXUZFfTDjLt5Ceivy69kb98u4P  
+  
+  
   
 primary code outline:  
 _gyro_  
