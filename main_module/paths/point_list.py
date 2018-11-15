@@ -4,7 +4,7 @@ from math import ceil
 from ._abstract import Path
 class PointList(Path):#TODO is this really necessary? could really be done by just giving Leash a series of points
     def __init__(self, points, start):
-        self.points = points
+        self.points = [Vector(point) for point in points]
         self.start = start
 
         self._independent_variable = 0.0

@@ -1,11 +1,11 @@
 import sys
 sys.path.append('..')
 
-from main_module.paths.cubic_spline import CubicSpline
+from main_module.paths.point_list import PointList
 from ..strategy import *
 class TestA(Strategy):
 
-    name = 'Skewed Figure-Eight'
+    name = 'Triangle'
 
     def __init__(self, gyro, odometer):
         import sys
@@ -24,21 +24,16 @@ class TestA(Strategy):
 
     def _get_leash(self):
         p0 = [0,0,0]
-        p1 = [3,60,-1]
-        p2 = [70,10,-2]
-        p3 = [70,70,-3]
-        path0 = CubicSpline(p0, p1, p2, p3, 0.0)
-        p0 = [70,70,-3]
-        p1 = [10,70,-2]
-        p2 = [60,3,-1]
-        p3 = [0,0,0]
-        path1 = CubicSpline(p0, p1, p2, p3, 1.0)
-        return Leash([path0, path1], 1.0, 0.01)
+        p1 = [0.75,0.75,-0.5]
+        p2 = [-0.75,0.75,-0.5]
+        path0 = PointList([p0, p1, p2, p0], 0.0)
+        return Leash([path0], 0.05, 0.005)
 
     def _get_events(self):
         return Events([], [])
 
 
+from main_module.paths.cubic_spline import CubicSpline
 class TestB(Strategy):
 
     name = 'Skewed Figure-Eight with Events'
@@ -60,16 +55,12 @@ class TestB(Strategy):
 
     def _get_leash(self):
         p0 = [0,0,0]
-        p1 = [3,60,-1]
-        p2 = [70,10,-2]
-        p3 = [70,70,-3]
+        p1 = [0.06,1.2,-0.25]
+        p2 = [1.4,0.2,-0.5]
+        p3 = [1.4,1.4,-0.75]
         path0 = CubicSpline(p0, p1, p2, p3, 0.0)
-        p0 = [70,70,-3]
-        p1 = [10,70,-2]
-        p2 = [60,3,-1]
-        p3 = [0,0,0]
-        path1 = CubicSpline(p0, p1, p2, p3, 1.0)
-        return Leash([path0, path1], 1.0, 0.01)
+        path1 = CubicSpline(p3, p1, p2, p0, 1.0)
+        return Leash([path0, path1], 0.05, 0.005)
 
     def _get_events(self):
         return Events([TestB._say_hi, TestB._say_goodbye], [0.5, 1.5])
@@ -110,9 +101,9 @@ class SinWave(Strategy):
         self.init()
 
     def _get_leash(self):
-        my_lambda = lambda t: [4.0*sin(t), 2.0*t, -0.25*t]
-        path0 = Curve(my_lambda, 0.0, 8*3.1415)
-        return Leash([path0], 0.75, 0.01)
+        my_lambda = lambda t: [0.5*sin(t), 0.25*t, -0.10*t]
+        path0 = Curve(my_lambda, 0.0, 2*3.1415)
+        return Leash([path0], 0.05, 0.005)
 
     def _get_events(self):
         return Events([], [])

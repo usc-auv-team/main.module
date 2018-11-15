@@ -11,6 +11,14 @@ class Vector(object):
     def __call__(self):
         return self.xyz
 
+    def __mul__(self, other):
+        return Vector([self.x*other, self.y*other, self.z*other])
+
+    def __imul__(self, other):
+        return Vector([self.x*other, self.y*other, self.z*other])
+
+    __rmul__ = __mul__
+
     def __sub__(self, other):
         return Vector([self.x - other[0], self.y - other[1], self.z - other[2]])
 
