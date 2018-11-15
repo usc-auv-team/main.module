@@ -56,7 +56,8 @@ def main(simulating = False):
         odometer = Odometer(30.0)
         propulsion = Propulsion(gyro, 30.0)
 
-        strategy = coach.list_of_strategies()[2]
+        choice = eval(input('Which strategy should we run? (Enter 0, 1, or 2): '))
+        strategy = coach.list_of_strategies()[choice]
         strategy = coach.initialize(strategy, gyro, odometer)
 
         visualizer = Visualizer()
