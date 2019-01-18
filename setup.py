@@ -5,7 +5,7 @@ with open('README.md', 'r') as fh:
 
 setuptools.setup(
 name = 'main_module',
-version = '0.0.1',
+version = '0.0.2',
 author = 'USC AUV Team',
 author_email = 'hshively@usc.edu',
 description = 'Logic for autonomous path following and task execution',

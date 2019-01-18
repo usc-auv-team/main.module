@@ -14,7 +14,7 @@ class PointList(Path):#TODO is this really necessary? could really be done by ju
         self._independent_variable += amount
         if self._independent_variable > len(self.points) - 1: return False
 
-        target_point_index = ceil(self._independent_variable)
+        target_point_index = int(ceil(self._independent_variable))
         target_point = self.points[target_point_index]
         passed_point = self.points[target_point_index - 1]
 
