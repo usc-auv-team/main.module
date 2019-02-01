@@ -24,6 +24,6 @@ class Middleman(Gyro):
 
     def callback(self, new_message):
         """value should be in degrees"""
-        self._roll = new_message.roll_degrees
-        self._pitch = new_message.pitch_degrees
-        self._yaw = new_message.yaw_degrees
+        self._roll = new_message.vector.x# degrees
+        self._pitch = new_message.vector.y# degrees
+        self._yaw = new_message.vector.z# degrees

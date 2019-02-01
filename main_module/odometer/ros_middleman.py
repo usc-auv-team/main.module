@@ -24,6 +24,6 @@ class Middleman(Odometer):
 
     def callback(self, new_message):
         """value should be in meters"""
-        self._x = new_message.x_meters
-        self._y = new_message.y_meters
-        self._z = new_message.z_meters
+        self._x = new_message.vector.x# meters
+        self._y = new_message.vector.y# meters
+        self._z = new_message.vector.x# meters
