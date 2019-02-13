@@ -2,7 +2,7 @@ from main_module.angle import OneD
 
 from ._abstract import Propulsion
 class Middleman(Propulsion):
-    TRANSLATIONAL_P = 0.05
+    TRANSLATIONAL_P = 1.0
     TRANSLATIONAL_I = 0.0
     TRANSLATIONAL_D = 0.0
 
