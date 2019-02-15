@@ -9,7 +9,7 @@ class Middleman(Gyro):
         del sys
 
         self._roll, self._pitch, self._yaw = [0.0, 0.0, 0.0]
-	self.got_first_angle = False
+        self.initialized = False
 
     @property
     def roll(self):
@@ -24,10 +24,10 @@ class Middleman(Gyro):
         return self._yaw - self.angle.tare_angles[2]
 
     def callback(self, new_message):
-	if not self.got_first_angle:
-		self.got_first_angle = True
-		self.set_tare([new_message.vector.x, new_message.vector.y, new_message.vector.z], False)
-	else:
-        	self._roll = new_message.vector.y# degrees
-        	self._pitch = new_message.vector.x# degrees
-        	self._yaw = new_message.vector.z# degrees
+        if not self.initialized:
+            self.set_tare([new_message.vector.x, new_message.vector.y, new_message.vector.z], False)
+            self.initialized = True
+        else:
+            self._roll = new_message.vector.y# degrees
+            self._pitch = new_message.vector.x# degrees
+            self._yaw = new_message.vector.z# degrees
