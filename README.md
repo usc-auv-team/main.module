@@ -5,9 +5,9 @@ build/install instructions:
 1) Make sure you're in the root directory (the one with setup.py)  
 2) python3 setup.py sdist bdist_wheel  
 3) cd dist
-4) pip3 install main_module-0.0.1-py3-none-any.whl  
+4) pip3 install main_module-0.0.2-py3-none-any.whl  
   
-You can also download the wheel here: https://github.com/usc-auv-team/main.module/releases/tag/0.0.1
+You can also download the wheel here: https://github.com/usc-auv-team/main.module/releases/tag/0.0.2
   
   
   
