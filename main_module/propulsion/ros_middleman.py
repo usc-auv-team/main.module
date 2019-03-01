@@ -2,7 +2,7 @@ from main_module.angle import OneD
 
 from ._abstract import Propulsion
 class Middleman(Propulsion):
-    TRANSLATIONAL_P = 1.0
+    TRANSLATIONAL_P = 0.05
     TRANSLATIONAL_I = 0.0
     TRANSLATIONAL_D = 0.0
 
@@ -10,7 +10,7 @@ class Middleman(Propulsion):
     ROTATIONAL_I = 0.0
     ROTATIONAL_D = 0.0
 
-    MAX_YAW_ERROR_WHILE_TRANSLATING = 5.0# Degrees
+    MAX_YAW_ERROR_WHILE_MOVING = 5.0# Degrees
 
     def __init__(self, gyro):
         self.gyro = gyro
@@ -23,12 +23,12 @@ class Middleman(Propulsion):
         """See comments in abstract"""
         self.speed_target = speed
 
-    def correct_for(self, error_vector, P = 0.05):
+    def correct_for(self, error_vector, P = Middleman.TRANSLATIONAL_P):
         """See comments in abstract"""
         self.desired_delta_depth = error_vector.z
         yaw_target = OneD.convert_to_angle(error_vector.x, error_vector.y)
 
-        if abs(self.travel_towards(yaw_target)) < Middleman.MAX_YAW_ERROR_WHILE_TRANSLATING:
+        if abs(self.travel_towards(yaw_target)) < Middleman.MAX_YAW_ERROR_WHILE_MOVING:
             error_magnitude_xy = (error_vector.x**2 + error_vector.y**2)**0.5
             self.set_speed(error_magnitude_xy*P)# TODO use full PID
 
@@ -45,7 +45,7 @@ class Middleman(Propulsion):
     def bundle_for_ros(self, message):
         message.desired_delta_depth_meters = self.desired_delta_depth
         message.desired_degrees_yaw = self.yaw_target
-        message.desired_percent_speed = self.speed_target
+        message.desired_percent_speed = 100.0*self.speed_target
         return message
 
     def set_spin(self, spin):
@@ -57,3 +57,8 @@ class Middleman(Propulsion):
     def complete_loop_update(self):
         pass
 
+    @classmethod
+    def configure_class_params(cls, translational_pid, rotational_pid, max_yaw_error_while_moving):
+        cls.TRANSLATIONAL_P, cls.TRANSLATIONAL_I, cls.TRANSLATIONAL_D = translational_pid
+        cls.ROTATIONAL_P, cls.ROTATIONAL_I, cls.ROTATIONAL_D = rotational_pid
+        cls.MAX_YAW_ERROR_WHILE_MOVING = max_yaw_error_while_moving
