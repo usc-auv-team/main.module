@@ -23,8 +23,10 @@ class Middleman(Propulsion):
         """See comments in abstract"""
         self.speed_target = speed
 
-    def correct_for(self, error_vector, P = Middleman.TRANSLATIONAL_P):
+    def correct_for(self, error_vector, P = None):
         """See comments in abstract"""
+        if P is None: P = Middleman.TRANSLATIONAL_P
+        
         self.desired_delta_depth = error_vector.z
         yaw_target = OneD.convert_to_angle(error_vector.x, error_vector.y)
 
