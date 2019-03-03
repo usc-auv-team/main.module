@@ -1,7 +1,7 @@
 from ._abstract import Odometer
 class Middleman(Odometer):
 
-    LOOKUP = {'east':0, '-east':0, 'pitch':1, '-pitch':1, 'yaw':2, '-yaw':2}
+    LOOKUP = {'east':0, '-east':0, 'north':1, '-north':1, 'down':2, '-down':2}
 
     def __init__(self):
 
